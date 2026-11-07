@@ -142,7 +142,7 @@ const CONFIG = {
 
   POUKAZ: "2 000 Kč",
   LOSOVANI: "15. 11. na našem Instagramu",
-  BODY_ZA_SADY: [0, 1000, 2000],   // sada 1 = vstup do slosování, sada 2 = 1000 bodů, sada 3 = 2000 bodů
+  BODY_ZA_SADY: [0, 1000, 1000],   // sada 1 = vstup do slosování, sada 2 = 1000 bodů, sada 3 = + dalších 1000 bodů
   MIN_SPRAVNE: 4,               // kolik správných z 5 = splněná sada
 
   UTM: "utm_source=minifestival&utm_medium=kviz&utm_campaign=minifestival_2026",
@@ -303,7 +303,7 @@ function intro(){
     <p>15 otázek o oblékání na ven, kombinézách WeeDo a našem obchodě. Na každou máte jen pár vteřin – hlídejte čas!</p>
     <div class="card">
       <div class="prize"><div class="ic">🎁</div><div><b>Sada 1</b> = vstup do <b>slosování o poukaz na ${CONFIG.POUKAZ}</b>. Losujeme ${CONFIG.LOSOVANI}.</div></div>
-      <div class="prize"><div class="ic">⭐</div><div><b>Sada 2</b> = <b>${fmt(CONFIG.BODY_ZA_SADY[1])} bodů</b> na nákup, <b>sada 3</b> = dalších <b>${fmt(CONFIG.BODY_ZA_SADY[2])} bodů</b>. Body připíšeme k vašemu účtu na e-shopu.</div></div>
+      <div class="prize"><div class="ic">⭐</div><div><b>Sada 2</b> = <b>${fmt(CONFIG.BODY_ZA_SADY[1])} bodů</b> na nákup, <b>sada 3</b> = + dalších <b>${fmt(CONFIG.BODY_ZA_SADY[2])} bodů</b>. Body připíšeme k vašemu účtu na e-shopu.</div></div>
     </div>
     <div class="rules"><img src="${CLIPBOARD}" alt=""><div><b style="color:var(--ink)">Pravidla:</b> hrát můžete jen jednou na jeden e-mail. 3 sady po 5 otázkách, čas na otázku 30 / 25 / 20 vteřin. Dohráním sady 1 jste ve slosování. Sady 2 a 3 jsou splněné při ${CONFIG.MIN_SPRAVNE} z 5 správných odpovědí. Body připíšeme jednou, k registraci na e-shopu se stejným e-mailem.</div></div>
     <div class="card" style="margin-top:14px">
@@ -440,7 +440,7 @@ async function result(s){
     ${talk(say, {big:true, cls: passed?"ok":""})}
     <div class="card" style="text-align:center">
       <div class="score"><span>${sc}</span>/5</div>
-      <p>${entry ? `A teď jde o body: za sadu 2 získáte <b>${fmt(CONFIG.BODY_ZA_SADY[1])} bodů</b>, za sadu 3 dalších <b>${fmt(CONFIG.BODY_ZA_SADY[2])} bodů</b>.` : passed ? `Teď máte <b>${fmt(state.points)} bodů</b>.` : `Na splnění ${CONFIG.MIN_SPRAVNE-sc===1?"chyběla 1 správná odpověď":`chyběly ${CONFIG.MIN_SPRAVNE-sc} správné odpovědi`}. ${last ? "" : "Hrajete dál a body můžete získat v další sadě."}`}</p>
+      <p>${entry ? `A teď jde o body: za sadu 2 získáte <b>${fmt(CONFIG.BODY_ZA_SADY[1])} bodů</b>, za sadu 3 + dalších <b>${fmt(CONFIG.BODY_ZA_SADY[2])} bodů</b>.` : passed ? `Teď máte <b>${fmt(state.points)} bodů</b>.` : `Na splnění ${CONFIG.MIN_SPRAVNE-sc===1?"chyběla 1 správná odpověď":`chyběly ${CONFIG.MIN_SPRAVNE-sc} správné odpovědi`}. ${last ? "" : "Hrajete dál a body můžete získat v další sadě."}`}</p>
       ${more ? `<p style="margin:0" class="muted">${more}</p>` : ""}
     </div>
     <div class="spacer"></div>
