@@ -302,7 +302,7 @@ function intro(){
     <h1>Poznáte svět malých dobrodruhů?</h1>
     <p>15 otázek o oblékání na ven, kombinézách WeeDo a našem obchodě. Na každou máte jen pár vteřin – hlídejte čas!</p>
     <div class="card">
-      <div class="prize"><div class="ic">🎁</div><div><b>Sada 1</b> = vstup do <b>slosování o poukaz na ${CONFIG.POUKAZ}</b>. Losujeme ${CONFIG.LOSOVANI}.</div></div>
+      <div class="prize"><div class="ic">🎁</div><div><b>Sada 1</b> = vstup do <b>slosování o poukaz na ${CONFIG.POUKAZ}</b> (losujeme ${CONFIG.LOSOVANI}) a navíc si u našeho stánku můžete vyzvednout <b>omalovánky</b> 🖍️</div></div>
       <div class="prize"><div class="ic">⭐</div><div><b>Sada 2</b> = <b>${fmt(CONFIG.BODY_ZA_SADY[1])} bodů</b> na nákup, <b>sada 3</b> = + dalších <b>${fmt(CONFIG.BODY_ZA_SADY[2])} bodů</b>. Body připíšeme k vašemu účtu na e-shopu.</div></div>
     </div>
     <div class="rules"><img src="${CLIPBOARD}" alt=""><div><b style="color:var(--ink)">Pravidla:</b> hrát můžete jen jednou na jeden e-mail. 3 sady po 5 otázkách, čas na otázku 30 / 25 / 20 vteřin. Dohráním sady 1 jste ve slosování. Sady 2 a 3 jsou splněné při ${CONFIG.MIN_SPRAVNE} z 5 správných odpovědí. Body připíšeme jednou, k registraci na e-shopu se stejným e-mailem.</div></div>
@@ -433,7 +433,7 @@ async function result(s){
   const passed = entry || sc >= CONFIG.MIN_SPRAVNE;
   if(passed && val){ state.points += val; }
   const last = s===SETS.length-1;
-  const say = entry ? `Hurá! Jste ve slosování o poukaz na ${CONFIG.POUKAZ}! 🎁`
+  const say = entry ? `Hurá! Jste ve slosování o poukaz na ${CONFIG.POUKAZ}! 🎁<p>A u našeho stánku si můžete vyzvednout omalovánky 🖍️</p>`
             : passed ? `Hurá! Sada splněná! +${fmt(val)} bodů 🎉` : `Tahle sada nevyšla, ale nevěšte hlavu!`;
   const more = !last ? (s===0 ? "Další sada je o oblékání na ven." : "Poslední sada je nejtěžší – poznáte typ WeeDo jen podle detailu?") : "";
   show(`
