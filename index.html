@@ -448,7 +448,7 @@ async function result(s){
   `);
   if(passed){ if(val) setPoints(true); heroAnim("hop"); }
   const r = await apiRetry({action: last ? "finish" : "progress", email: state.email, set: s+1, score: sc});
-  if(r && r.ok && typeof r.points==="number") { state.points = r.points; setPoints(false); }
+  // body se zobrazují podle pravidel ve hře (CONFIG.BODY_ZA_SADY), ne podle odpovědi skriptu
   if(last) lsSet({email:state.email, finished:true, points:state.points});
   const b = $("#nx"); b.disabled = false; b.textContent = last ? "Zobrazit výsledek 🏆" : "Pokračovat →";
   if(r && !r.ok && r.error==="network"){ b.insertAdjacentHTML("beforebegin", `<p class="muted" style="text-align:center">Připojení kolísá – výsledek zkusíme uložit znovu na konci. Klidně pokračujte.</p>`); state.pending = {s, sc}; }
@@ -459,10 +459,10 @@ async function end(){
   if(state.pending){ await apiRetry({action:"finish", email:state.email, set:state.pending.s+1, score:state.pending.sc}); state.pending=null; }
   const total = state.scores.reduce((a,b)=>a+b,0);
   show(`
-    ${talk(`Dohráno! ${total}/15 🏆<p>Děkuju, že jste si se mnou zahráli!</p>`, {big:true, cls:"ok"})}
+    ${talk(state.points ? `Gratuluju! Získali jste ${fmt(state.points)} bodů! 🏆<p>Výsledek: ${total}/15. Děkuju, že jste si se mnou zahráli!</p>` : `Dohráno! ${total}/15 🏆<p>Děkuju, že jste si se mnou zahráli!</p>`, {big:true, cls:"ok"})}
     <div class="card">
       ${state.points
-        ? `<p>Získali jste <b style="color:var(--orange)">${fmt(state.points)} bodů</b> na nákup. Připíšeme je k vašemu účtu na promaledobrodruhy.cz se stejným e-mailem (${esc(state.email)}).</p>
+        ? `<p><b>Gratulujeme!</b> Získali jste <b style="color:var(--orange)">${fmt(state.points)} bodů</b> na nákup. Připíšeme je k vašemu účtu na promaledobrodruhy.cz se stejným e-mailem (${esc(state.email)}).</p>
            <p class="muted">⚠️ Body můžeme připsat jen k <b>registrovanému účtu</b>. Ještě nemáte registraci? Zaregistrujte se pod tímto e-mailem – jinak body nemáme kam připsat.</p>`
         : `<p>Tentokrát bez bodů, ale nevadí!</p>`}
       <p style="margin:0">🎁 Jste ve <b>slosování o poukaz na ${CONFIG.POUKAZ}</b>. Losujeme ${CONFIG.LOSOVANI}.</p>
